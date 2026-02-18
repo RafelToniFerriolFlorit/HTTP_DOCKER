@@ -1,0 +1,16 @@
+services:
+  apache:
+    build: .
+    container_name: servidor-http-ufotable
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./html:/var/www/html
+      - ./config/virtualhosts.conf:/etc/apache2/sites-available/000-default.conf
+    networks:
+      - webnet
+    restart: unless-stopped
+
+networks:
+  webnet:
+    driver: bridge
