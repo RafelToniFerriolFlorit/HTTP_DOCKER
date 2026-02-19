@@ -1,14 +1,9 @@
-FROM ubuntu:22.04
+FROM debian:12-slim
 
-ENV DEBIAN_FRONTEND=noninteractive
-
-RUN apt update && apt install -y apache2 && \
-    a2enmod rewrite && \
-    a2enmod alias
-
-COPY config/virtualhosts.conf /etc/apache2/sites-available/000-default.conf
-
-RUN mkdir -p /var/www/html
+RUN apt-get update && \
+    apt-get install -y apache2 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 EXPOSE 80
 
